@@ -40,7 +40,7 @@ class DB_Type_Pgsql_Row extends DB_Type_Abstract_Container
                 throw new DB_Type_Exception_Container($this, "output", $field, $e->getMessage());
             }
             if ($v === null) {
-                $parts[] = '';
+                $parts[] = 'NULL';
             } else {
                 // ROW() quote ['] and [\] characters: src\backend\adt\rowtypes.c
                 // Single-quote string literals.
