@@ -42,8 +42,9 @@ class DB_Type_Pgsql_Row extends DB_Type_Abstract_Container
             if ($v === null) {
                 $parts[] = '';
             } else {
-            	// ROW() doubles ["] and [\] characters: src\backend\adt\rowtypes.c
-                $parts[] = '"' . str_replace(array('"', '\\'), array('""', '\\\\'), $v) . '"';
+                // ROW() quote ['] and [\] characters: src\backend\adt\rowtypes.c
+                // Single-quote string literals.
+                $parts[] = '\'' . str_replace(array('\'', '\\'), array('\'\'', '\\\\'), $v) . '\'';
             }
         }
 
