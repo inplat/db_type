@@ -17,10 +17,10 @@ class DB_Type_Pgsql_Array extends DB_Type_Abstract_Container
                 $parts[] = 'NULL';
             } else {
             	// ARRAY() adds a slash before ["] and [\] only: src\backend\utils\adt\arrayfuncs.c
-                $parts[] = (($this->_item instanceof self)? $inner : '"' . addcslashes($inner, "\"\\") . '"');
+                $parts[] = (($this->_item instanceof self)? $inner : addcslashes($inner, "\"\\"));
             }
         }
-        return '{' . join(",", $parts) . '}';
+        return 'array[' . join(",", $parts) . ']';
     }
 
     protected function _parseInput($str, &$p, $for='')
