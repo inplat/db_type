@@ -5,7 +5,7 @@ class DB_Type_Pgsql_Array extends DB_Type_Abstract_Container
     public function output($value)
     {
         if ($value === null) {
-            return null;
+            return 'array[]';
         }
     	if (!is_array($value)) {
             throw new DB_Type_Exception_Common($this, "output", "PHP-array or null", $value);
