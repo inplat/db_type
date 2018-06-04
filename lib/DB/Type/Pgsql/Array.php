@@ -43,7 +43,7 @@ class DB_Type_Pgsql_Array extends DB_Type_Abstract_Container
             }
             $inner = substr($str, $p, $e - $p);
             $p = $e + 1;
-            if (!preg_match_all('/([\d.]+|null)/is', $inner, $m)) return array();
+            if (!preg_match_all('/([\d.-]+|null)/is', $inner, $m)) return array();
             foreach ($m[0] as $v) {
                 $result[] = ctype_alpha($v)? null : $v;
             }
