@@ -1,5 +1,5 @@
 {
-	"name": "nikolas/db_type",
+	"name": "inplat/db_type",
 	"type": "library",
 	"description": "Conversion of complex PostgreSQL types (ARRAY, ROW, HSTORE) to PHP and vice versa",
 	"keywords": ["postgresql","plpgsql"],
