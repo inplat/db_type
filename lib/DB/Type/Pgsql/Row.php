@@ -67,7 +67,10 @@ class DB_Type_Pgsql_Row extends DB_Type_Abstract_Container
         // Check for immediate trailing ')'.
         $c = $this->_charAfterSpaces($str, $p);
         if ($c == ')') {
-        	if (list ($field,) = each($this->_items)) {
+            $firstItem = array_slice($this->_items, 0, 1, true);
+            $field = array_keys($firstItem)[0];
+
+            if (!empty($firstItem)) {
                 throw new DB_Type_Exception_Common($this, "input", "field '$field' value", $str, $p);
             }
             $p++;
@@ -79,12 +82,17 @@ class DB_Type_Pgsql_Row extends DB_Type_Abstract_Container
         // - unquoted strings (before first "," or ")")
         // - empty string (it is treated as NULL)
         // Nested rows and all other things are represented as strings.
+        $itemIdx = 0;
         while (1) {
-        	// We read a value in this iteration, then - delimiter.
+            $item = array_slice($this->_items, $itemIdx++, 1, true);
+            $field = array_keys($item)[0];
+            $type = $item[$field];
+
+            // We read a value in this iteration, then - delimiter.
             $c = $this->_charAfterSpaces($str, $p);
 
             // Check if we have more fields left.
-            if (!(list ($field, $type) = each($this->_items))) {
+            if (empty($item)) {
             	throw new DB_Type_Exception_Common($this, "input", "end of the row: no more fields left", $str, $p);
             }
 
